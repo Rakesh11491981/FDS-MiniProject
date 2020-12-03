@@ -30,8 +30,8 @@ void make_move(int *x,int *y)
 	{
 		while(true)
 		{
-			printf("\nEnter your move: [row] [column] -> ");
-			scanf("%d %d", x, y);
+			cout<<"\nEnter your move: [row] [column] -> ";
+			cin>>*x>>*y;
             // Check values to make sure they're not larger than the board size.
 			if ((*x < SIDE) && (*y < SIDE))
             {
@@ -43,31 +43,31 @@ void make_move(int *x,int *y)
 void printboard(char myboard[][max_side])
 	{
 		clear();
-		printf("\n\n\t\t\t    ");
+		cout<<"\n\n\t\t\t    ";
 
 		for(int i=0;i<SIDE;i++)
 		{
 			if (i>9)
-				printf("%d ",i/10);
+				cout<<i/10<<" ";
 			else
-				printf("  ");
+				cout<<"  ";
 		}
-		
-		printf("\n\t\t\t    ");
+
+		cout<<"\n\t\t\t    ";
 
 		for(int i=0;i<SIDE;i++)
-			printf("%d ",i%10);
+			cout<<i%10<<" ";
 
-		printf("\n\n");
+		cout<<"\n\n";
 
 		for(int i=0;i<SIDE;i++)
 		{
-			printf("\t\t\t    ");
+			cout<<"\t\t\t    ";
 			for(int j=0;j<SIDE;j++){
-				printf("%c ",myboard[i][j]);
+				cout<<myboard[i][j]<<" ";
 			}
-			printf(" %2d",i);
-			printf("\n");
+			cout<<" "<<i;
+			cout<<"\n";
 		}
 		return;
 	}
@@ -139,9 +139,9 @@ bool playminesuntil(char myboard[][max_side],char realboard[][max_side],int mine
 			myboard[row][col]='*';
 			for(i=0;i<MINES;i++)
 					myboard[mines[i][0]][mines[i][1]]='*';
-				
+
 			printboard(myboard);
-			printf ("\nYou lost!\n");
+			cout<<"\nYou lost!\n";
 			return (true);
 		}
 
@@ -154,7 +154,7 @@ bool playminesuntil(char myboard[][max_side],char realboard[][max_side],int mine
 
 			if(!count)
 			{
-		
+
 				if(isvalid(row-1,col)==true)
 				{
 					if(ismine(row-1,col,realboard)==false)
@@ -168,14 +168,14 @@ bool playminesuntil(char myboard[][max_side],char realboard[][max_side],int mine
 						playminesuntil(myboard, realboard, mines, row+1, col, moves_left);
 				}
 
-      
+
 				if (isvalid (row, col+1) == true)
 				{
 					if (ismine (row, col+1, realboard) == false)
 						playminesuntil(myboard, realboard, mines, row, col+1, moves_left);
 				}
 
-         
+
 				if (isvalid (row, col-1) == true)
 				{
 					if (ismine (row, col-1, realboard) == false)
@@ -188,7 +188,7 @@ bool playminesuntil(char myboard[][max_side],char realboard[][max_side],int mine
 						playminesuntil(myboard, realboard, mines, row-1, col+1, moves_left);
 				}
 
-             
+
 				if (isvalid (row-1, col-1) == true)
 				{
 					if (ismine (row-1, col-1, realboard) == false)
@@ -200,7 +200,7 @@ bool playminesuntil(char myboard[][max_side],char realboard[][max_side],int mine
 					if (ismine (row+1, col+1, realboard) == false)
 						playminesuntil(myboard, realboard, mines, row+1, col+1, moves_left);
 				}
-				
+
 				if (isvalid (row+1, col-1) == true)
 				{
 					if (ismine (row+1, col-1, realboard) == false)
@@ -252,7 +252,7 @@ void initialise(char realboard[][max_side],char myboard[][max_side])
 
 void cheatmines (char realboard[][max_side])
 {
-    printf ("The mines locations are-\n");
+    cout<<"The mines locations are-\n";
     printboard (realboard);
     return;
 }
@@ -272,7 +272,7 @@ void replacemine(int row,int col,char board[][max_side])
 				}
 
 			}
-				
+
 		}
 
 void play()
@@ -289,13 +289,13 @@ void play()
 
 		placemines(mines,realboard);
 
-		//if you want cheat and win 
+		//if you want cheat and win
 		//cheatmines(realboard);
 		int currentmoveindex=0;
 
 		while(gameover==false)
 		{
-			printf ("Current Status of Board : \n");
+			cout<<"Current Status of Board : \n";
 			printboard(myboard);
 			make_move(&x,&y);
 
@@ -312,7 +312,7 @@ void play()
 
 			if((gameover==false)&&(moves_left==0))
 			{
-				printf ("\nYou won !\n");
+				cout<<"\nYou won !\n";
 				gameover=true;
 			}
 		}
@@ -324,30 +324,30 @@ void play()
 void choosedifficulty()
 	{
 		clear();
-		cout<<"\n\t\t\t\t\t\t\t\tMINESWEEPER";
-		cout<<"\n\n\t\t\t\t\t\tCHOOSE DIFFICULTY LEVEL : ";
-		cout<<"\n\n\t\t\t\t\t\t0.BEGINNER\n\t\t\t\t\t\t1.INTERMMEDIATE\n\t\t\t\t\t\t2.ADVANCED";
-		cout<<"\n\n\t\t\t\t\t\tENTER CHOICE (0-2) : ";
+		cout<<"\n\t\t\tMINESWEEPER";
+		cout<<"\n\n\t\t\tChoose Difficulty Level: ";
+		cout<<"\n\n\t\t\t0.Beginner\n\t\t\t1.Intermediate\n\t\t\t2.Advanced";
+		cout<<"\n\n\t\t\tEnter Choice (0-2) : ";
 		int choice;
 		cin>>choice;
 		if(choice==0)
 		{
-			SIDE=9; 
+			SIDE=9;
 			MINES=10;
 		}
 		else
 		if(choice==1)
 		{
-			SIDE=16; 
+			SIDE=16;
 			MINES=40;
 		}
 		else
 		if(choice==2)
 		{
-			SIDE=24; 
+			SIDE=24;
 			MINES=99;
 		}
-		else	
+		else
 			exit(0);
 
 	}
