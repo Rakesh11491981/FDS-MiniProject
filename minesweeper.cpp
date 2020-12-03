@@ -9,14 +9,14 @@ int SIDE;
 int MINES;
 
 void clear(){
-		printf("\33[2J\33[1;1H");
+		cout << "\33[2J\033[1;1H";
 }
 
-bool isvalid(int row,int col){
+bool isvalid(int row,int col){ // If the cell is inside the board
     return (row>=0)&&(row<SIDE)&&(col>=0)&&(col<SIDE);
 }
 
-bool ismine(int row,int col,char board[][max_side]){
+bool ismine(int row,int col,char board[][max_side]){ // If there is a mine
     if(board[row][col]=='*')
         return (true);
     else
@@ -24,7 +24,7 @@ bool ismine(int row,int col,char board[][max_side]){
 }
 
 void make_move(int *x,int *y){
-    while(true)
+    while(true) // Correct input
     {
         cout<<"\nEnter your move: [row] [column] -> ";
         cin>>*x>>*y;
@@ -66,65 +66,55 @@ void printboard(char myboard[][max_side]){
     return;
 }
 
-int countadjacent(int row,int col,int mines[][2],char realboard[][max_side])
+int countadjacent(int row,int col,int mines[][2],char realboard[][max_side]) // Counts the no of adjacent cell that does no contain a mine
 {
     int count=0;
-
     if(isvalid(row-1,col)==true)
     {
         if(ismine(row-1,col,realboard)==true)
             count++;
     }
-
     if(isvalid(row+1,col)==true)
     {
         if(ismine(row+1,col,realboard)==true)
             count++;
     }
-
     if(isvalid(row,col+1)==true)
     {
         if(ismine(row,col+1,realboard)==true)
             count++;
     }
-
     if(isvalid(row,col-1)==true)
     {
         if(ismine(row,col-1,realboard)==true)
             count++;
     }
-
     if(isvalid(row-1,col-1)==true)
     {
         if(ismine(row-1,col-1,realboard)==true)
             count++;
     }
-
     if(isvalid(row-1,col+1)==true)
     {
         if(ismine(row-1,col+1,realboard)==true)
             count++;
     }
-
     if(isvalid(row+1,col-1)==true)
     {
         if(ismine(row+1,col-1,realboard)==true)
             count++;
     }
-
     if(isvalid(row+1,col+1)==true)
     {
         if(ismine(row+1,col+1,realboard)==true)
             count++;
     }
-
     return (count);
-
 }
 
 bool playminesuntil(char myboard[][max_side],char realboard[][max_side],int mines[][2],int row,int col,int *moves_left)
 {
-    if(myboard[row][col]!='-')
+    if(myboard[row][col]!='-') // 
         return false;
 
     int i,j;
@@ -138,69 +128,53 @@ bool playminesuntil(char myboard[][max_side],char realboard[][max_side],int mine
         cout<<"\nYou lost!\n";
         return (true);
     }
-
     else
     {
         int count=countadjacent(row,col,mines,realboard);
         (*moves_left)--;
-
         myboard[row][col]= count+'0';
-
         if(!count)
         {
-
             if(isvalid(row-1,col)==true)
             {
                 if(ismine(row-1,col,realboard)==false)
                     playminesuntil(myboard, realboard, mines, row-1, col, moves_left);
             }
-
-
             if (isvalid (row+1, col) == true)
             {
                 if (ismine (row+1, col, realboard) == false)
                     playminesuntil(myboard, realboard, mines, row+1, col, moves_left);
             }
-
-
             if (isvalid (row, col+1) == true)
             {
                 if (ismine (row, col+1, realboard) == false)
                     playminesuntil(myboard, realboard, mines, row, col+1, moves_left);
             }
-
-
             if (isvalid (row, col-1) == true)
             {
                 if (ismine (row, col-1, realboard) == false)
                     playminesuntil(myboard, realboard, mines, row, col-1, moves_left);
             }
-
             if (isvalid (row-1, col+1) == true)
             {
                 if (ismine (row-1, col+1, realboard) == false)
                     playminesuntil(myboard, realboard, mines, row-1, col+1, moves_left);
             }
-
-
             if (isvalid (row-1, col-1) == true)
             {
                 if (ismine (row-1, col-1, realboard) == false)
                     playminesuntil(myboard, realboard, mines, row-1, col-1, moves_left);
             }
-
             if (isvalid (row+1, col+1) == true)
             {
                 if (ismine (row+1, col+1, realboard) == false)
                     playminesuntil(myboard, realboard, mines, row+1, col+1, moves_left);
             }
-
             if (isvalid (row+1, col-1) == true)
             {
                 if (ismine (row+1, col-1, realboard) == false)
                     playminesuntil(myboard, realboard, mines, row+1, col-1, moves_left);
             }
-
         }
         return (false);
     }
@@ -313,31 +287,31 @@ void play()
 
 
 }
-
-
+int Menu(){
+    clear();
+    cout<<"\n\t\t\tMINESWEEPER";
+    cout<<"\n\n\t\t\t\tDevelopers : \n\t\t\t\t\tRakesh Kumar Tiwari\n\t\t\t\t\tDigvijay Singh\n";
+    cout<<"\n\n\t\tChoose Difficulty Level: ";
+    cout<<"\n\n\t\t0.Beginner\n\t\t1.Intermediate\n\t\t2.Advanced";
+    cout<<"\n\n\t\tEnter Choice (0-2) : ";
+    int choice;
+    cin >> choice;
+    return choice;
+}
 void choosedifficulty()
 {
-    clear();
-    cout<<"\n\t\t\t\t\tMINESWEEPER";
-    cout<<"\n\n\t\t\t\t\t\t\t\t\tDevelopers : \n\t\t\t\t\t\t\t\t\t\t\tRakesh Kumar Tiwari\n\t\t\t\t\t\t\t\t\t\t\tDigvijay Singh\n";
-    cout<<"\n\n\t\t\t\tChoose Difficulty Level: ";
-    cout<<"\n\n\t\t\t\t0.Beginner\n\t\t\t\t1.Intermediate\n\t\t\t\t2.Advanced";
-    cout<<"\n\n\t\t\t\tEnter Choice (0-2) : ";
-    int choice;
-    cin>>choice;
+    int choice = Menu();
     if(choice==0)
     {
         SIDE=9;
         MINES=10;
     }
-    else
-    if(choice==1)
+    else if(choice==1)
     {
         SIDE=16;
         MINES=40;
     }
-    else
-    if(choice==2)
+    else if(choice==2)
     {
         SIDE=24;
         MINES=99;
