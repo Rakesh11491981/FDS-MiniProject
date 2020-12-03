@@ -27,3 +27,6 @@ g++ minesweeper.cpp -o minesweeper
 ![Game](screenshots/game.png)
 
 ![Minesweeper running](screenshots/minesweeper-running.gif)
+
+### Created BY:-
+RAKESH TIWARI        and        DIGVIJAY SINGH
