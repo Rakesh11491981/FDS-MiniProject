@@ -9,7 +9,8 @@ int SIDE;
 int MINES;
 
 void clear(){
-		cout << "\33[2J\033[1;1H";
+	cout << "\33[2J\033[1;1H";
+	system("pause");
 }
 
 bool isvalid(int row,int col){ // If the cell is inside the board
