@@ -24,7 +24,7 @@ bool ismine(int row,int col,char board[][max_side]){ // If there is a mine
         return (false);
 }
 
-void make_move(int *x,int *y){
+void make_move(int *x,int *y){  //take input from the user
     while(true) // Correct input
     {
         cout<<"\nEnter your move: [row] [column] -> ";
@@ -37,7 +37,7 @@ void make_move(int *x,int *y){
     }
 }
 
-void printboard(char myboard[][max_side]){
+void printboard(char myboard[][max_side]){   //to print current gameplay board
     clear();
     cout<<"\n\n\t\t\t    ";
     for(int i=0;i<SIDE;i++)
@@ -67,7 +67,7 @@ void printboard(char myboard[][max_side]){
     return;
 }
 
-int countadjacent(int row,int col,int mines[][2],char realboard[][max_side]) // Counts the no of adjacent cell that does no contain a mine
+int countadjacent(int row,int col,int mines[][2],char realboard[][max_side]) // Counts the no of adjacent cell that contains a mine
 {
     int count=0;
     if(isvalid(row-1,col)==true)
@@ -115,7 +115,7 @@ int countadjacent(int row,int col,int mines[][2],char realboard[][max_side]) // 
 
 bool playminesuntil(char myboard[][max_side],char realboard[][max_side],int mines[][2],int row,int col,int *moves_left)
 {
-    if(myboard[row][col]!='-') // 
+    if(myboard[row][col]!='-') //
         return false;
 
     int i,j;
@@ -181,7 +181,7 @@ bool playminesuntil(char myboard[][max_side],char realboard[][max_side],int mine
     }
 }
 
-void placemines(int mines[][2],char realboard[][max_side])
+void placemines(int mines[][2],char realboard[][max_side])  // to place mines randomly on the board
 {
     bool mark[max_side*max_side];
 
@@ -259,7 +259,7 @@ void play()
     placemines(mines,realboard);
 
     //if you want cheat and win
-    //cheatmines(realboard);
+    cheatmines(realboard);
     int currentmoveindex=0;
 
     while(gameover==false)
